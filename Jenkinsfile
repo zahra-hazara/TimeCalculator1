@@ -1,23 +1,22 @@
-
 pipeline {
     agent any
 
     stages {
         stage('Checkout') {
             steps {
-                 git branch: 'main', url:'https://github.com/zahra-hazara/TimeCalculator1.git'
+                git branch: 'main', url: 'https://github.com/zahra-hazara/TimeCalculator1.git'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'mvn clean install'
+                bat 'mvn clean install'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'mvn test'
+                bat 'mvn test'
             }
         }
 
@@ -31,8 +30,6 @@ pipeline {
     post {
         always {
             junit '**/target/surefire-reports/*.xml'
-            jacoco execPattern: '**/target/jacoco.exec'
         }
     }
 }
-
